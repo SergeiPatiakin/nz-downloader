@@ -1,0 +1,107 @@
+{
+  "name": "nz-downloader",
+  "productName": "nz-downloader",
+  "version": "1.0.0",
+  "description": "NZ Downloader",
+  "main": ".webpack/main",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "package:windows": "electron-forge package --platform win32",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --ext .ts .",
+    "test": "jest --runInBand --forceExit --detectOpenHandles --verbose false"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Sergei Patiakin",
+    "email": "sergei.patiakin@gmail.com"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "my_new_app"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "plugins": [
+        [
+          "@electron-forge/plugin-webpack",
+          {
+            "mainConfig": "./webpack.main.config.js",
+            "renderer": {
+              "config": "./webpack.renderer.config.js",
+              "entryPoints": [
+                {
+                  "html": "./src/fe/index.html",
+                  "js": "./src/fe/renderer.tsx",
+                  "name": "main_window"
+                }
+              ]
+            }
+          }
+        ]
+      ]
+    }
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "@electron-forge/plugin-webpack": "6.0.0-beta.54",
+    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "@types/jest": "^29.2.3",
+    "@types/node-imap": "^0.9.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "css-loader": "^4.2.1",
+    "electron": "10.1.5",
+    "electron-packager-dummy-wine": "^1.1.0",
+    "eslint": "^7.6.0",
+    "eslint-plugin-import": "^2.20.0",
+    "fork-ts-checker-webpack-plugin": "^5.0.14",
+    "jest": "^29.3.1",
+    "node-loader": "^1.0.1",
+    "style-loader": "^1.2.1",
+    "ts-jest": "^29.0.3",
+    "ts-loader": "^8.0.2",
+    "typescript": "^4.0.2",
+    "url-loader": "4.1.1"
+  },
+  "dependencies": {
+    "@types/react": "16.9.56",
+    "@types/react-dom": "16.9.9",
+    "@types/styled-components": "5.1.4",
+    "electron-squirrel-startup": "^1.0.0",
+    "fp-ts": "^2.13.1",
+    "io-ts": "^2.2.19",
+    "mailparser-mit": "^1.0.0",
+    "moment": "^2.29.4",
+    "node-imap": "^0.9.6",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "styled-components": "5.2.1"
+  }
+}
