@@ -1,5 +1,14 @@
 # NZ Downloader
 
+## Description
+
+NZ Downloader is a desktop application that can download email attachments via IMAP and save them
+to local directories according to configurable rules.
+
+<img src = "docs/screenshot1.png" width = 500>
+<img src = "docs/screenshot2.png" width = 500>
+<img src = "docs/screenshot3.png" width = 500>
+
 ## Build app (macOS)
 
 npm run make
