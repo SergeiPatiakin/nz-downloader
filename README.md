@@ -9,25 +9,27 @@ to local directories according to configurable rules.
 <img src = "docs/screenshot2.png" width = 500>
 <img src = "docs/screenshot3.png" width = 500>
 
-## Build app (macOS)
+## Developer documentation
+
+### Build app (macOS)
 
 npm run make
-## Run app (macOS)
+### Run app (macOS)
 
 open out/nz-downloader-darwin-x64/nz-downloader.app
 
-## Kill app (macOS)
+### Kill app (macOS)
 
 killall nz-downloader
 
-## Read logs for the main process
+### Read logs for the main process
 
 tail -f ~/Library/Application\ Support/nz-downloader/out.log
 
-## Inspect database state
+### Inspect database state
 
 subl ~/Library/Application\ Support/nz-downloader/db.json
 
-## Clear database state
+### Clear database state
 
 rm ~/Library/Application\ Support/nz-downloader/db.json
