@@ -101,7 +101,7 @@ export class DatabaseService {
   // No initialization check or lock management
   private async _writeDb(state: DatabaseState): Promise<void> {
     let newContent = JSON.stringify(state, null, 4)
-    const databaseStageFd = await util.promisify(fs.openFile)(databaseStagePath, 'w')
+    const databaseStageFd = await util.promisify(fs.open)(databaseStagePath, 'w')
     await util.promisify(fs.write)(databaseStageFd, newContent)
     await util.promisify(fs.fsync)(databaseStageFd)
     await util.promisify(fs.close)(databaseStageFd)
