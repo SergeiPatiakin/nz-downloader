@@ -10,6 +10,7 @@ import { failure } from 'io-ts/PathReporter'
 import { DatabaseState, DatabaseStateCodec } from '../iso/api-types'
 
 const databasePath = path.join(app.getPath('userData'), 'db.json')
+const databaseStagePath = path.join(app.getPath('userData'), 'db-stage.json')
 
 const getInitialState = (): DatabaseState => ({
   migrationVersion: 1,
@@ -99,7 +100,13 @@ export class DatabaseService {
   }
   // No initialization check or lock management
   private async _writeDb(state: DatabaseState): Promise<void> {
-    await util.promisify(fs.writeFile)(databasePath, JSON.stringify(state, null, 4))
+    let newContent = JSON.stringify(state, null, 4)
+    const databaseStageFd = await util.promisify(fs.open)(databaseStagePath, 'w')
+    await util.promisify(fs.write)(databaseStageFd, newContent)
+    await util.promisify(fs.fsync)(databaseStageFd)
+    await util.promisify(fs.close)(databaseStageFd)
+    // Atomically replace old content with new content
+    await util.promisify(fs.rename)(databaseStagePath, databasePath)
   }
   // Will take and release a lock if none is explicitly passed
   public async writeDb(state: DatabaseState, lock?: DatabaseLock): Promise<void> {
